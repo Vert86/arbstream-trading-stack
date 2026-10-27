@@ -1,0 +1,227 @@
+[
+ {
+  "n_settled": 159,
+  "wins": 92,
+  "win_rate": 0.579,
+  "z_luck": 2.27,
+  "settled_pnl": -12207.0,
+  "top_pnl_share": 0.14,
+  "cat_mix": {
+   "sports": 0.96,
+   "other": 0.04
+  },
+  "n_positions": 98,
+  "n_redeem_wins": 92,
+  "name": "taylorsversion",
+  "roi_lb": 2.458,
+  "lb_pnl": 144617.0,
+  "lb_vol": 58835.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 785,
+  "wins": 501,
+  "win_rate": 0.638,
+  "z_luck": 9.67,
+  "settled_pnl": -34481.0,
+  "top_pnl_share": 0.11,
+  "cat_mix": {
+   "sports": 0.46,
+   "other": 0.53,
+   "politics": 0.01
+  },
+  "n_positions": 361,
+  "n_redeem_wins": 501,
+  "name": "Zzzz87",
+  "roi_lb": 2.359,
+  "lb_pnl": 130215.0,
+  "lb_vol": 55202.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 191,
+  "wins": 166,
+  "win_rate": 0.869,
+  "z_luck": 10.25,
+  "settled_pnl": -13052.0,
+  "top_pnl_share": 0.43,
+  "cat_mix": {
+   "other": 0.78,
+   "sports": 0.21,
+   "politics": 0.01
+  },
+  "n_positions": 42,
+  "n_redeem_wins": 166,
+  "name": "Elaran1993",
+  "roi_lb": 2.293,
+  "lb_pnl": 150081.0,
+  "lb_vol": 65461.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 129,
+  "wins": 75,
+  "win_rate": 0.581,
+  "z_luck": 1.9,
+  "settled_pnl": -13861.0,
+  "top_pnl_share": 0.24,
+  "cat_mix": {
+   "sports": 0.95,
+   "other": 0.05
+  },
+  "n_positions": 73,
+  "n_redeem_wins": 75,
+  "name": "chubbytoro",
+  "roi_lb": 1.973,
+  "lb_pnl": 113102.0,
+  "lb_vol": 57317.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 289,
+  "wins": 171,
+  "win_rate": 0.592,
+  "z_luck": 3.76,
+  "settled_pnl": -4628.0,
+  "top_pnl_share": 0.09,
+  "cat_mix": {
+   "other": 0.68,
+   "sports": 0.31,
+   "politics": 0.02
+  },
+  "n_positions": 154,
+  "n_redeem_wins": 171,
+  "name": "mde4life1986",
+  "roi_lb": 1.179,
+  "lb_pnl": 38234.0,
+  "lb_vol": 32434.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 80,
+  "wins": 70,
+  "win_rate": 0.875,
+  "z_luck": 6.75,
+  "settled_pnl": -257.0,
+  "top_pnl_share": 0.36,
+  "cat_mix": {
+   "politics": 0.9,
+   "sports": 0.04,
+   "other": 0.06
+  },
+  "n_positions": 45,
+  "n_redeem_wins": 70,
+  "name": "0x448861155279dbf833d041b963e3ac854599e319",
+  "roi_lb": 1.154,
+  "lb_pnl": 31818.0,
+  "lb_vol": 27573.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 78,
+  "wins": 78,
+  "win_rate": 1.0,
+  "z_luck": 8.83,
+  "settled_pnl": 0,
+  "top_pnl_share": 0.0,
+  "cat_mix": {
+   "sports": 0.48,
+   "other": 0.52
+  },
+  "n_positions": 23,
+  "n_redeem_wins": 78,
+  "name": "ShadowRealms",
+  "roi_lb": 1.076,
+  "lb_pnl": 21511.0,
+  "lb_vol": 20000.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 1121,
+  "wins": 246,
+  "win_rate": 0.219,
+  "z_luck": -1.74,
+  "settled_pnl": -22995.0,
+  "top_pnl_share": 0.01,
+  "cat_mix": {
+   "sports": 0.62,
+   "other": 0.38,
+   "politics": 0.0
+  },
+  "n_positions": 2000,
+  "n_redeem_wins": 230,
+  "name": "0xD9E0AACa471f48F91A26E8669A805f2",
+  "roi_lb": 1.062,
+  "lb_pnl": 642982.0,
+  "lb_vol": 605287.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 485,
+  "wins": 271,
+  "win_rate": 0.559,
+  "z_luck": 4.97,
+  "settled_pnl": -153938.0,
+  "top_pnl_share": 0.12,
+  "cat_mix": {
+   "sports": 0.91,
+   "other": 0.09
+  },
+  "n_positions": 239,
+  "n_redeem_wins": 271,
+  "name": "BrotherObama",
+  "roi_lb": 1.027,
+  "lb_pnl": 95871.0,
+  "lb_vol": 93338.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 80,
+  "wins": 80,
+  "win_rate": 1.0,
+  "z_luck": 8.94,
+  "settled_pnl": 0,
+  "top_pnl_share": 0.0,
+  "cat_mix": {
+   "sports": 1.0
+  },
+  "n_positions": 6,
+  "n_redeem_wins": 80,
+  "name": "0x446884aa55e3dCF7123D9A3D6243c4E34B70B165-1791060354625",
+  "roi_lb": 0.759,
+  "lb_pnl": 28418.0,
+  "lb_vol": 37422.0,
+  "in_top30": true,
+  "in_top7": true
+ },
+ {
+  "n_settled": 1056,
+  "wins": 173,
+  "win_rate": 0.164,
+  "z_luck": -19.88,
+  "settled_pnl": -19988.0,
+  "top_pnl_share": 0.02,
+  "cat_mix": {
+   "other": 0.13,
+   "sports": 0.87,
+   "politics": 0.0
+  },
+  "n_positions": 1504,
+  "n_redeem_wins": 173,
+  "name": "vibing123",
+  "roi_lb": 0.738,
+  "lb_pnl": 18197.0,
+  "lb_vol": 24651.0,
+  "in_top30": true,
+  "in_top7": true
+ }
+]

@@ -1,0 +1,17 @@
+{
+ "cash": 340.0,
+ "positions": {},
+ "trades": [],
+ "equity_hwm": 340.0,
+ "tactical": {
+  "cash": 340.0,
+  "positions": {},
+  "trades": []
+ },
+ "pullback": {
+  "cash": 340.0,
+  "pending": {},
+  "positions": {},
+  "trades": []
+ }
+}

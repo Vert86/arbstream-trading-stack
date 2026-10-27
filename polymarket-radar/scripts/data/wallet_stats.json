@@ -1,0 +1,495 @@
+[
+ {
+  "n_settled": 16,
+  "wins": 2,
+  "win_rate": 0.125,
+  "z_luck": -10.27,
+  "settled_pnl": -77940.0,
+  "top_pnl_share": 0.23,
+  "cat_mix": {
+   "sports": 1.0
+  },
+  "n_positions": 21,
+  "n_redeem_wins": 2,
+  "name": "Mooseborzoiii",
+  "addr": "0x57a85952044f2c8e4d31b475aab6987d2f98ebc2",
+  "lb_pnl": 1602196.0,
+  "lb_vol": 208662.0
+ },
+ {
+  "n_settled": 62,
+  "wins": 4,
+  "win_rate": 0.065,
+  "z_luck": -15.22,
+  "settled_pnl": -34446.0,
+  "top_pnl_share": 0.07,
+  "cat_mix": {
+   "other": 1.0
+  },
+  "n_positions": 62,
+  "n_redeem_wins": 4,
+  "name": "OhWhenTheReds",
+  "addr": "0x918b42a06ff25eaaa4a79eca9da6a9de46f4ea63",
+  "lb_pnl": 56703.0,
+  "lb_vol": 363472.0
+ },
+ {
+  "n_settled": 15,
+  "wins": 8,
+  "win_rate": 0.533,
+  "z_luck": -19.39,
+  "settled_pnl": -1903.0,
+  "top_pnl_share": 0.29,
+  "cat_mix": {
+   "sports": 0.78,
+   "other": 0.22
+  },
+  "n_positions": 17,
+  "n_redeem_wins": 8,
+  "name": "lalalalalalallalalalala",
+  "addr": "0xe1787252abc9db4d5bfac51c253a68e0162ffe19",
+  "lb_pnl": 63000.0,
+  "lb_vol": 0.0
+ },
+ {
+  "n_settled": 14,
+  "wins": 14,
+  "win_rate": 1.0,
+  "z_luck": -24.4,
+  "settled_pnl": 0,
+  "top_pnl_share": 0.0,
+  "cat_mix": {
+   "politics": 1.0
+  },
+  "n_positions": 1,
+  "n_redeem_wins": 14,
+  "name": "0xc7285A98C485b4350cE50fA0B67f067693dE3E5b-1768074690253",
+  "addr": "0xc7285a98c485b4350ce50fa0b67f067693de3e5b",
+  "lb_pnl": 65827.0,
+  "lb_vol": 65989.0
+ },
+ {
+  "n_settled": 136,
+  "wins": 13,
+  "win_rate": 0.096,
+  "z_luck": -24.57,
+  "settled_pnl": -82154.0,
+  "top_pnl_share": 0.25,
+  "cat_mix": {
+   "other": 0.61,
+   "politics": 0.02,
+   "sports": 0.36
+  },
+  "n_positions": 741,
+  "n_redeem_wins": 13,
+  "name": "BreakTheBank",
+  "addr": "0xf0318c32136c2db7fec88b84869aee6a1106c80c",
+  "lb_pnl": 17383.0,
+  "lb_vol": 663620.0
+ },
+ {
+  "n_settled": 16,
+  "wins": 16,
+  "win_rate": 1.0,
+  "z_luck": -27.15,
+  "settled_pnl": 0,
+  "top_pnl_share": 0.0,
+  "cat_mix": {
+   "sports": 0.99,
+   "other": 0.01
+  },
+  "n_positions": 8,
+  "n_redeem_wins": 16,
+  "name": "googleplay",
+  "addr": "0xe9b710551dd82a44e79203c2394a2b10163ace7b",
+  "lb_pnl": 909602.0,
+  "lb_vol": 881656.0
+ },
+ {
+  "n_settled": 117,
+  "wins": 14,
+  "win_rate": 0.12,
+  "z_luck": -27.27,
+  "settled_pnl": -60809.0,
+  "top_pnl_share": 0.06,
+  "cat_mix": {
+   "other": 1.0
+  },
+  "n_positions": 104,
+  "n_redeem_wins": 14,
+  "name": "theowalcott",
+  "addr": "0x7ad71d79a3bb90d0a87a06500fa0fe11663842aa",
+  "lb_pnl": 185831.0,
+  "lb_vol": 366844.0
+ },
+ {
+  "n_settled": 27,
+  "wins": 24,
+  "win_rate": 0.889,
+  "z_luck": -33.33,
+  "settled_pnl": -1221.0,
+  "top_pnl_share": 0.78,
+  "cat_mix": {
+   "politics": 0.91,
+   "sports": 0.09,
+   "other": 0.0
+  },
+  "n_positions": 16,
+  "n_redeem_wins": 24,
+  "name": "YYYYY999",
+  "addr": "0x6ac5bb06a9eb05641fd5e82640268b92f3ab4b6e",
+  "lb_pnl": 508206.0,
+  "lb_vol": 160689.0
+ },
+ {
+  "n_settled": 100,
+  "wins": 33,
+  "win_rate": 0.33,
+  "z_luck": -39.79,
+  "settled_pnl": -12207.0,
+  "top_pnl_share": 0.14,
+  "cat_mix": {
+   "sports": 0.96,
+   "other": 0.04
+  },
+  "n_positions": 98,
+  "n_redeem_wins": 33,
+  "name": "taylorsversion",
+  "addr": "0xb9c7d35d1f04d08624fabcfd3b6cee2d3c9baade",
+  "lb_pnl": 144617.0,
+  "lb_vol": 58835.0
+ },
+ {
+  "n_settled": 88,
+  "wins": 34,
+  "win_rate": 0.386,
+  "z_luck": -39.88,
+  "settled_pnl": -13861.0,
+  "top_pnl_share": 0.24,
+  "cat_mix": {
+   "sports": 0.95,
+   "other": 0.05
+  },
+  "n_positions": 73,
+  "n_redeem_wins": 34,
+  "name": "chubbytoro",
+  "addr": "0xe4a57385a34b0b32fd86be72efd25cda41003cad",
+  "lb_pnl": 113102.0,
+  "lb_vol": 57317.0
+ },
+ {
+  "n_settled": 36,
+  "wins": 36,
+  "win_rate": 1.0,
+  "z_luck": -40.16,
+  "settled_pnl": 0,
+  "top_pnl_share": 0.0,
+  "cat_mix": {},
+  "n_positions": 0,
+  "n_redeem_wins": 36,
+  "name": "Talvez10",
+  "addr": "0xa71093cafc0c099b4ccab24c3cb8018d817923c4",
+  "lb_pnl": 79144.0,
+  "lb_vol": 0.0
+ },
+ {
+  "n_settled": 59,
+  "wins": 40,
+  "win_rate": 0.678,
+  "z_luck": -43.22,
+  "settled_pnl": -18905.0,
+  "top_pnl_share": 0.16,
+  "cat_mix": {
+   "other": 0.58,
+   "sports": 0.42
+  },
+  "n_positions": 24,
+  "n_redeem_wins": 40,
+  "name": "juice-fruit",
+  "addr": "0x5fdd66ffd0325d4e8d1d86fbec50caa31770a747",
+  "lb_pnl": 234034.0,
+  "lb_vol": 0.0
+ },
+ {
+  "n_settled": 46,
+  "wins": 46,
+  "win_rate": 1.0,
+  "z_luck": -43.82,
+  "settled_pnl": 0,
+  "top_pnl_share": 0.0,
+  "cat_mix": {
+   "other": 1.0
+  },
+  "n_positions": 2,
+  "n_redeem_wins": 46,
+  "name": "Woaifacai",
+  "addr": "0x9b89ef1f344d3e17b37ccdff3bccf62d04f04244",
+  "lb_pnl": 168054.0,
+  "lb_vol": 825366.0
+ },
+ {
+  "n_settled": 62,
+  "wins": 60,
+  "win_rate": 0.968,
+  "z_luck": -50.17,
+  "settled_pnl": -1253.0,
+  "top_pnl_share": 1.0,
+  "cat_mix": {
+   "sports": 1.0,
+   "other": 0.0
+  },
+  "n_positions": 13,
+  "n_redeem_wins": 60,
+  "name": "gmpm2",
+  "addr": "0x67542c3219b37fd1610aad290676ff91cdbfe3bc",
+  "lb_pnl": 229516.0,
+  "lb_vol": 2749.0
+ },
+ {
+  "n_settled": 126,
+  "wins": 90,
+  "win_rate": 0.714,
+  "z_luck": -64.7,
+  "settled_pnl": -5933.0,
+  "top_pnl_share": 0.08,
+  "cat_mix": {
+   "sports": 0.5,
+   "other": 0.49,
+   "politics": 0.01
+  },
+  "n_positions": 57,
+  "n_redeem_wins": 90,
+  "name": "ArielFilipino",
+  "addr": "0xe18ecc345e00ee7c4f2d1f676f3dd2acb112f826",
+  "lb_pnl": 102143.0,
+  "lb_vol": 0.0
+ },
+ {
+  "n_settled": 100,
+  "wins": 100,
+  "win_rate": 1.0,
+  "z_luck": -67.59,
+  "settled_pnl": 0,
+  "top_pnl_share": 0.0,
+  "cat_mix": {
+   "sports": 0.77,
+   "other": 0.23,
+   "politics": 0.01
+  },
+  "n_positions": 279,
+  "n_redeem_wins": 100,
+  "name": "Donkey14",
+  "addr": "0xcd84d7f9262516865553555751609fb6f52abec6",
+  "lb_pnl": 57574.0,
+  "lb_vol": 93285.0
+ },
+ {
+  "n_settled": 767,
+  "wins": 116,
+  "win_rate": 0.151,
+  "z_luck": -72.84,
+  "settled_pnl": -2404703.0,
+  "top_pnl_share": 0.02,
+  "cat_mix": {
+   "other": 0.48,
+   "sports": 0.52,
+   "politics": 0.0
+  },
+  "n_positions": 2000,
+  "n_redeem_wins": 116,
+  "name": "ferrariChampions2026",
+  "addr": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319",
+  "lb_pnl": 29108.0,
+  "lb_vol": 2146816.0
+ },
+ {
+  "n_settled": 135,
+  "wins": 129,
+  "win_rate": 0.956,
+  "z_luck": -74.37,
+  "settled_pnl": -45.0,
+  "top_pnl_share": 0.44,
+  "cat_mix": {
+   "sports": 0.97,
+   "other": 0.03
+  },
+  "n_positions": 198,
+  "n_redeem_wins": 129,
+  "name": "keeptheblueflagflyinghigh",
+  "addr": "0x0d6a1ada6d7ff785ab4b7263d9ce8e2baa85aa98",
+  "lb_pnl": 37608.0,
+  "lb_vol": 1205217.0
+ },
+ {
+  "n_settled": 159,
+  "wins": 134,
+  "win_rate": 0.843,
+  "z_luck": -78.09,
+  "settled_pnl": -13052.0,
+  "top_pnl_share": 0.43,
+  "cat_mix": {
+   "other": 0.78,
+   "sports": 0.21,
+   "politics": 0.01
+  },
+  "n_positions": 42,
+  "n_redeem_wins": 134,
+  "name": "Elaran1993",
+  "addr": "0xb7271c112cbd83eb4c1ef1b554ff963604ae2a9d",
+  "lb_pnl": 150081.0,
+  "lb_vol": 65461.0
+ },
+ {
+  "n_settled": 290,
+  "wins": 179,
+  "win_rate": 0.617,
+  "z_luck": -85.63,
+  "settled_pnl": -5324.0,
+  "top_pnl_share": 0.18,
+  "cat_mix": {
+   "other": 0.46,
+   "politics": 0.23,
+   "sports": 0.31
+  },
+  "n_positions": 520,
+  "n_redeem_wins": 179,
+  "name": "nigiri99",
+  "addr": "0xdc41c39b95453c943174f369926018f6963bdd7e",
+  "lb_pnl": 297897.0,
+  "lb_vol": 542069.0
+ },
+ {
+  "n_settled": 464,
+  "wins": 180,
+  "win_rate": 0.388,
+  "z_luck": -92.27,
+  "settled_pnl": -34481.0,
+  "top_pnl_share": 0.11,
+  "cat_mix": {
+   "sports": 0.46,
+   "other": 0.53,
+   "politics": 0.01
+  },
+  "n_positions": 361,
+  "n_redeem_wins": 180,
+  "name": "Zzzz87",
+  "addr": "0x2117ae94a97d69b78cbc81b6680a62deb1955c26",
+  "lb_pnl": 130215.0,
+  "lb_vol": 55202.0
+ },
+ {
+  "n_settled": 415,
+  "wins": 201,
+  "win_rate": 0.484,
+  "z_luck": -96.98,
+  "settled_pnl": -153938.0,
+  "top_pnl_share": 0.12,
+  "cat_mix": {
+   "sports": 0.91,
+   "other": 0.09
+  },
+  "n_positions": 239,
+  "n_redeem_wins": 201,
+  "name": "BrotherObama",
+  "addr": "0x8a8685a792c184e5c2ee8c7d4d4baba7c2c94998",
+  "lb_pnl": 95871.0,
+  "lb_vol": 93338.0
+ },
+ {
+  "n_settled": 2180,
+  "wins": 255,
+  "win_rate": 0.117,
+  "z_luck": -100.95,
+  "settled_pnl": -164996.0,
+  "top_pnl_share": 0.03,
+  "cat_mix": {
+   "other": 0.89,
+   "sports": 0.11,
+   "politics": 0.0,
+   "crypto": 0.0
+  },
+  "n_positions": 2000,
+  "n_redeem_wins": 255,
+  "name": "UpTheBlues",
+  "addr": "0x2a69660046d7acc4ab204d7cc5ba78b0776cd2f7",
+  "lb_pnl": 30133.0,
+  "lb_vol": 1182247.0
+ },
+ {
+  "n_settled": 1034,
+  "wins": 218,
+  "win_rate": 0.211,
+  "z_luck": -101.04,
+  "settled_pnl": -3538.0,
+  "top_pnl_share": 0.21,
+  "cat_mix": {
+   "sports": 0.86,
+   "other": 0.14,
+   "politics": 0.0
+  },
+  "n_positions": 1807,
+  "n_redeem_wins": 218,
+  "name": "takeormake",
+  "addr": "0xa38a455bbdd4b68486548b7e19da99903f4f821d",
+  "lb_pnl": 60511.0,
+  "lb_vol": 1030481.0
+ },
+ {
+  "n_settled": 1121,
+  "wins": 246,
+  "win_rate": 0.219,
+  "z_luck": -103.58,
+  "settled_pnl": -22995.0,
+  "top_pnl_share": 0.01,
+  "cat_mix": {
+   "sports": 0.62,
+   "other": 0.38,
+   "politics": 0.0
+  },
+  "n_positions": 2000,
+  "n_redeem_wins": 230,
+  "name": "0xD9E0AACa471f48F91A26E8669A805f2",
+  "addr": "0xd9e0aaca471f489be338fd0f91a26e8669a805f2",
+  "lb_pnl": 642982.0,
+  "lb_vol": 605287.0
+ },
+ {
+  "n_settled": 1093,
+  "wins": 267,
+  "win_rate": 0.244,
+  "z_luck": -111.57,
+  "settled_pnl": -23824.0,
+  "top_pnl_share": 0.05,
+  "cat_mix": {
+   "sports": 0.69,
+   "other": 0.31,
+   "politics": 0.01
+  },
+  "n_positions": 2000,
+  "n_redeem_wins": 267,
+  "name": "HomeRunHazard",
+  "addr": "0x5268527977f700f9bf9b6d5cd843859e4e70135d",
+  "lb_pnl": 137708.0,
+  "lb_vol": 2445207.0
+ },
+ {
+  "n_settled": 835,
+  "wins": 313,
+  "win_rate": 0.375,
+  "z_luck": -113.55,
+  "settled_pnl": -303781.0,
+  "top_pnl_share": 0.07,
+  "cat_mix": {
+   "other": 0.82,
+   "sports": 0.18,
+   "crypto": 0.0,
+   "politics": 0.0
+  },
+  "n_positions": 2000,
+  "n_redeem_wins": 313,
+  "name": "RN1",
+  "addr": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+  "lb_pnl": 7695.0,
+  "lb_vol": 608902.0
+ }
+]
