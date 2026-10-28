@@ -69,6 +69,10 @@ def scan(verbose=True):
     open_ids = {b["event_id"] for b in bets}
     snap_rows, new_bets, log, edge_rows = [], [], [], []
     shadow_bets = []
+    ev_all = []
+    ev_league = lambda e: e[1]; ev_gid = lambda e: e[2]; ev_event = lambda e: e[3]
+    ev_kick = lambda e: e[4]; ev_key = lambda e: e[5]
+    ev_team = lambda e, s: e[6] if s == "home" else e[7]
     shadow_open = load_jsonl(os.path.join(STATE, "shadow_bets.jsonl"))
     shadow_ids = {b["event_id"] for b in shadow_open if b.get("status") == "open"}
 
@@ -109,6 +113,8 @@ def scan(verbose=True):
             ev = model.evaluate(league, teams, inj, h_abbr, a_abbr, fair, prices)
             if not ev:
                 continue
+            ev_all.append((ev, league, gid, f"{a_abbr} @ {h_abbr}", g["kickoff"],
+                           f"{a_abbr}@{h_abbr}", h_abbr, a_abbr))
             for side, rec in ev.items():
                 edge_rows.append({
                     "ts": now.isoformat(), "league": league, "espn_id": gid,
@@ -153,6 +159,25 @@ def scan(verbose=True):
                         "status": "open", "result": None, "payout": None,
                         "profit": None, "clv": None, "price_closing": None,
                     })
+
+    for evc in ev_all:
+        ev, league, gid, event, kickoff, mkey, h_abbr, a_abbr = evc
+        for side, rec in ev.items():
+            if (rec.get("nba_gate") and model.MIN_EDGE <= rec["edge_ungated"] <= model.MAX_EDGE
+                    and model.ODDS_MIN <= rec["price"] <= model.ODDS_MAX):
+                shadow_bets.append({
+                    "ts": now.isoformat(), "league": league, "event_id": gid,
+                    "event": event, "kickoff": kickoff,
+                    "market": "moneyline", "shadow": True, "shadow_reason": "nba_early_gate",
+                    "mv": model.MODEL_VERSION, "selection": side,
+                    "team": h_abbr if side == "home" else a_abbr, "match_key": mkey,
+                    "price_taken": rec["price"], "fair_prob": rec["fair"],
+                    "p_fund": rec["p_fund"], "p_model": rec["p_model_ungated"],
+                    "edge": rec["edge_ungated"], "stake": STAKE_U,
+                    "status": "open", "result": None, "payout": None,
+                    "profit": None, "clv": None, "price_closing": None,
+                })
+                break
 
     if new_bets:
         new_bets = new_bets[:BETS_PER_SCAN]

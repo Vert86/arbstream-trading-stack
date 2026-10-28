@@ -52,22 +52,24 @@ def fund_margin(league, h, a, h_inj, a_inj):
         netppg_a = netppg_a if abs(netppg_a) < 3 else 0.0
     gp_h = h.get("gp") or 1
     gp_a = a.get("gp") or 1
-    # v5 gate: NBA early-season standings + preseason injury lists are pure noise
-    # (settled evidence: NBA gp 0-2 cohort went 2W/10, ROI -56.5%). No NBA tilt
-    # until BOTH teams have >=8 games; the model then equals the market -> no bets.
-    if league == "nba" and min(gp_h, gp_a) < 8:
-        return 0.0
+    # v5 gate (UNVALIDATED RULE — tested prospectively, not imposed as truth):
+    # NBA early-season standings + preseason injury lists are hypothesized noise
+    # (rule was designed AFTER the 2W/10 gp 0-2 cohort; owner correctly flagged
+    # post-hoc fitting). The gate suppresses REAL bets but scan.py logs what the
+    # ungated rule WOULD have bet into the shadow ledger, so fresh data — not the
+    # fitting sample — decides whether the gate earns its keep.
     k = min(1.0, min(gp_h, gp_a) / float(cfg.get("gp_ref", 15)))
     margin = ((h["winPct"] - a["winPct"]) * W_WINPCT + (netppg_h - netppg_a) * W_NETPPG) * k
     margin += (a_inj - h_inj) * cfg["inj_pts"]
     margin = max(-MAX_TILT_PTS, min(MAX_TILT_PTS, margin))
-    return margin
+    NBA_GATE = league == "nba" and min(gp_h, gp_a) < 8
+    return (0.0, True) if NBA_GATE else (margin, False)
 
 
 def p_fund(league, h, a, h_inj, a_inj):
     """Legacy-compatible probability view of the margin (for logging only)."""
     cfg = espn.LEAGUES[league]
-    m = fund_margin(league, h, a, h_inj, a_inj)
+    m, _g = fund_margin(league, h, a, h_inj, a_inj)
     return logistic(m / cfg["scale"])
 
 
@@ -89,20 +91,25 @@ def evaluate(league, teams, inj, home_abbr, away_abbr, fair_probs_map, cloudbet_
         return None
     h_inj = inj.get(home_abbr, 0)
     a_inj = inj.get(away_abbr, 0)
-    m = fund_margin(league, h, a, h_inj, a_inj)
-    pf = logistic(m / espn.LEAGUES[league]["scale"])
+    m_raw, gated = fund_margin(league, h, a, h_inj, a_inj)
+    m_use = 0.0 if gated else m_raw          # real decisions: gate suppresses tilt
+    pf = logistic(m_raw / espn.LEAGUES[league]["scale"])   # logged view stays ungated
     out = {}
     for side in ("home", "away"):
         fair = fair_probs_map.get(side)
         price = cloudbet_prices.get(side)
         if fair is None or not price:
             continue
-        pm = model_prob(fair, league, m if side == "home" else -m)
+        pm = model_prob(fair, league, m_use if side == "home" else -m_use)
+        pm_u = model_prob(fair, league, m_raw if side == "home" else -m_raw)
         out[side] = {
             "price": price,
             "fair": round(fair, 4),
             "p_fund": round(pf if side == "home" else 1 - pf, 4),
             "p_model": round(pm, 4),
+            "p_model_ungated": round(pm_u, 4),
             "edge": round(pm * price - 1, 4),
+            "edge_ungated": round(pm_u * price - 1, 4),
+            "nba_gate": gated,
         }
     return out if out else None

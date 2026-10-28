@@ -37,7 +37,9 @@ def report(min_n=30):
               f"(positive CLV is the leading indicator of a real edge)")
     for lg, (cnt, w, p) in sorted(by_league.items()):
         print(f"  {lg}: {cnt} bets, {w} wins, {p:+.2f}u")
-    print(f"(validation gate: n>={min_n} settled AND positive ROI AND positive avg CLV)")
+    print(f"(BINDING gate: avg CLV > 0 at n=100 settled — DEAD below. "
+      f"n>={min_n} ROI>0 is a checkpoint only, ~coin flip alone; "
+      f"shadow cohorts never count)")
 
     # near-miss shadow cohort (floor-calibration only; NOT part of the gate)
     shadows = [b for b in load_jsonl(os.path.join(STATE, "shadow_bets.jsonl"))
