@@ -6,7 +6,8 @@ import urllib.request
 
 SITE = "https://site.api.espn.com/apis/site/v2/sports"
 
-LEAGUE_PATHS = {"nba": "basketball/nba", "nfl": "football/nfl", "nhl": "hockey/nhl"}
+LEAGUE_PATHS = {"nba": "basketball/nba", "nfl": "football/nfl", "nhl": "hockey/nhl",
+                 "ncaab": "basketball/mens-college-basketball"}
 
 
 def _get(url, timeout=30):

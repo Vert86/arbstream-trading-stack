@@ -9,6 +9,10 @@ LEAGUES = {
     "nba": {"site": "basketball/nba", "hfa": 2.5, "scale": 11.5, "inj_pts": 0.8, "gp_ref": 20},
     "nfl": {"site": "football/nfl", "hfa": 1.6, "scale": 13.5, "inj_pts": 0.5, "gp_ref": 8},
     "nhl": {"site": "hockey/nhl", "hfa": 0.30, "scale": 1.9, "inj_pts": 0.06, "gp_ref": 15},
+    # NCAAB added Oct 28 2026 (owner wants more bet flow; NBA volume unlock happens ~Nov 10).
+    # College: bigger home edge (~3.5 pts), no reliable injury feed, gp_ref 15 so the
+    # fundamental tilt is shrunk hard in the first weeks of a 350-team season.
+    "ncaab": {"site": "basketball/mens-college-basketball", "hfa": 3.5, "scale": 11.5, "inj_pts": 0.0, "gp_ref": 15},
 }
 
 

@@ -14,6 +14,7 @@ Honest design notes (v4, after NBA 0-6 postmortem):
       so market-only EV (~ -2% vs the book margin) never produces a bet.
 - Edge = model_prob * price - 1; only bet +2%..+10% at odds 1.5-3.0.
 """
+import datetime as dt
 import math
 
 import espn
@@ -58,6 +59,11 @@ def fund_margin(league, h, a, h_inj, a_inj):
     # post-hoc fitting). The gate suppresses REAL bets but scan.py logs what the
     # ungated rule WOULD have bet into the shadow ledger, so fresh data — not the
     # fitting sample — decides whether the gate earns its keep.
+    # NCAAB guard (Oct 28 2026): before the current season populates, ESPN can still
+    # serve LAST season's records (gp 15-30 in October). Those are stale rosters -
+    # zero the tilt rather than bet on them.
+    if league == "ncaab" and min(gp_h, gp_a) >= 15 and dt.date.today().month in (10, 11):
+        return (0.0, False)
     k = min(1.0, min(gp_h, gp_a) / float(cfg.get("gp_ref", 15)))
     margin = ((h["winPct"] - a["winPct"]) * W_WINPCT + (netppg_h - netppg_a) * W_NETPPG) * k
     margin += (a_inj - h_inj) * cfg["inj_pts"]

@@ -76,7 +76,7 @@ def scan(verbose=True):
     shadow_open = load_jsonl(os.path.join(STATE, "shadow_bets.jsonl"))
     shadow_ids = {b["event_id"] for b in shadow_open if b.get("status") == "open"}
 
-    for league in ("nfl", "nba", "nhl"):
+    for league in ("nfl", "nba", "nhl", "ncaab"):
         try:
             teams = _espn_cached(league, "standings")
             inj = _espn_cached(league, "injuries")
