@@ -39,6 +39,21 @@ def report(min_n=30):
         print(f"  {lg}: {cnt} bets, {w} wins, {p:+.2f}u")
     print(f"(validation gate: n>={min_n} settled AND positive ROI AND positive avg CLV)")
 
+    # near-miss shadow cohort (floor-calibration only; NOT part of the gate)
+    shadows = [b for b in load_jsonl(os.path.join(STATE, "shadow_bets.jsonl"))
+               if b.get("status") == "settled"]
+    if shadows:
+        sw = sum(1 for b in shadows if b["result"] == "win")
+        sp = sum(b["profit"] for b in shadows)
+        sclv = [b["clv"] for b in shadows if b.get("clv") is not None]
+        print(f"--- SHADOW near-miss cohort (0.5-2% edges; calibration only) ---")
+        print(f"settled: {len(shadows)} | WR {sw/len(shadows)*100:.1f}% | "
+              f"profit {sp:+.2f}u | ROI {sp/len(shadows)*100:+.1f}% | "
+              f"CLV {sum(sclv)/len(sclv)*100:+.2f}%" if sclv else
+              f"settled: {len(shadows)} | WR {sw/len(shadows)*100:.1f}% | profit {sp:+.2f}u")
+    else:
+        print("shadow near-miss cohort: no settled entries yet")
+
 
 if __name__ == "__main__":
     report()

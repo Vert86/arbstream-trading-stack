@@ -1,4 +1,6 @@
-"""Settle open paper bets from ESPN results; compute CLV vs last snapshot."""
+"""Settle open paper bets from ESPN results; compute CLV vs last snapshot.
+v5 Oct 28: settles BOTH ledgers — the real gate cohort (bets.jsonl) and the
+near-miss shadow cohort (shadow_bets.jsonl) — in separate files."""
 import datetime as dt
 import json
 import os
@@ -8,6 +10,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import espn_odds
 from scan import load_jsonl, STATE
 
+RESULTS_CACHE = {}
+
 
 def _et_date(iso_utc):
     t = dt.datetime.fromisoformat(iso_utc.replace("Z", "+00:00"))
@@ -15,14 +19,17 @@ def _et_date(iso_utc):
     return t.astimezone(dt.timezone(dt.timedelta(hours=offset))).strftime("%Y%m%d")
 
 
-def settle(verbose=True):
-    bets_path = os.path.join(STATE, "bets.jsonl")
-    all_bets = load_jsonl(bets_path)
-    snaps = load_jsonl(os.path.join(STATE, "snapshots.jsonl"))
-    now = dt.datetime.now(dt.timezone.utc)
-    settled, pending = [], []
-    results_cache = {}
+def _get_results(league, et_date):
+    key = (league, et_date)
+    if key not in RESULTS_CACHE:
+        RESULTS_CACHE[key] = espn_odds.results(league, et_date)
+    return RESULTS_CACHE[key]
 
+
+def settle_file(fname, snaps, now, verbose):
+    bets_path = os.path.join(STATE, fname)
+    all_bets = load_jsonl(bets_path)
+    settled, pending = [], []
     for b in [x for x in all_bets if x.get("status") == "open"]:
         kickoff = dt.datetime.fromisoformat(b["kickoff"].replace("Z", "+00:00"))
         if kickoff > now:
@@ -32,11 +39,7 @@ def settle(verbose=True):
             pending.append(b)
             continue
         league, mk = b["league"], b["match_key"]
-        et_date = _et_date(b["kickoff"])
-        key = (league, et_date)
-        if key not in results_cache:
-            results_cache[key] = espn_odds.results(league, et_date)
-        res = results_cache[key].get(mk)
+        res = _get_results(league, _et_date(b["kickoff"])).get(mk)
         if res is None:
             if (now - kickoff).total_seconds() > 30 * 3600:
                 b["status"] = "void"
@@ -71,12 +74,21 @@ def settle(verbose=True):
             f.write(json.dumps(b) + "\n")
 
     if verbose:
+        tag = " [SHADOW]" if fname == "shadow_bets.jsonl" else ""
         for b in settled:
             clv = f" | CLV {b['clv']*100:+.1f}%" if b.get("clv") is not None else ""
-            print(f"settled: {b['event']} {b['selection'].upper()} {b['team']} @ {b['price_taken']}"
+            print(f"settled{tag}: {b['event']} {b['selection'].upper()} {b['team']} @ {b['price_taken']}"
                   f" = {b['result'].upper()} ({b['profit']:+.2f}u){clv}")
-        print(f"open bets remaining: {len(pending)}")
+        print(f"open in {fname}: {len(pending)}")
     return settled, pending
+
+
+def settle(verbose=True):
+    now = dt.datetime.now(dt.timezone.utc)
+    snaps = load_jsonl(os.path.join(STATE, "snapshots.jsonl"))
+    a = settle_file("bets.jsonl", snaps, now, verbose)
+    b = settle_file("shadow_bets.jsonl", snaps, now, verbose)
+    return a, b
 
 
 if __name__ == "__main__":

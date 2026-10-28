@@ -24,7 +24,8 @@ TILT_WEIGHT = 0.25  # logit-space weight of the fundamental margin delta
 MAX_TILT_PTS = 5.0   # cap fundamental margin swing in league points
 MAX_SHIFT_LOGIT = 0.10  # hard cap: model can diverge at most this far from market in logits
 
-MODEL_VERSION = 4
+MODEL_VERSION = 5   # v5 Oct 28: NBA tilt gated on >=8 games played (week-1 standings/injury noise: NBA cohort 2W/10, -56.5% ROI at gp 0-2)
+SHADOW_EDGE_MIN = 0.005  # near-miss shadow band: 0.5%-2% edges, logged for floor calibration, never counted in the gate cohort
 MIN_EDGE = 0.02      # require >= +2% EV vs book odds (never negative)
 ODDS_MIN, ODDS_MAX = 1.5, 3.0
 MAX_EDGE = 0.10  # larger edges at sharp books = suspected miscalibration, skip
@@ -51,6 +52,11 @@ def fund_margin(league, h, a, h_inj, a_inj):
         netppg_a = netppg_a if abs(netppg_a) < 3 else 0.0
     gp_h = h.get("gp") or 1
     gp_a = a.get("gp") or 1
+    # v5 gate: NBA early-season standings + preseason injury lists are pure noise
+    # (settled evidence: NBA gp 0-2 cohort went 2W/10, ROI -56.5%). No NBA tilt
+    # until BOTH teams have >=8 games; the model then equals the market -> no bets.
+    if league == "nba" and min(gp_h, gp_a) < 8:
+        return 0.0
     k = min(1.0, min(gp_h, gp_a) / float(cfg.get("gp_ref", 15)))
     margin = ((h["winPct"] - a["winPct"]) * W_WINPCT + (netppg_h - netppg_a) * W_NETPPG) * k
     margin += (a_inj - h_inj) * cfg["inj_pts"]
