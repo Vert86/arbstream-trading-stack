@@ -217,6 +217,8 @@ def scan():
                         f.write(json.dumps({
                             "ts": out["ts"], "type": "arb", "event": c["event"],
                             "slug": c.get("eventSlug"), "direction": c["direction"],
+                            "legs": [o.get("slug") for o in c.get("outcomes", [])],
+                            "n_outcomes": c.get("n_outcomes"),
                             "size_usdc": round(paper_size, 2),
                             "expected_profit_usdc": round(
                                 paper_size * v["exec_edge_pct"] / 100 / max(0.01, 1 - v["exec_edge_pct"] / 100), 2),
@@ -398,6 +400,22 @@ def book_mid(token_id):
 CLV_MAX_SPREAD = 0.05   # drop CLV observations where the book is wider than 5%
 IDLE_BASELINE_APR_PCT = 4.0   # what idle USDT earns (Simple Earn ~3.1% + risk buffer)
 
+def _legs_from_candidates(row):
+    """Recover a basket's leg slugs for legacy ledger rows written before legs were stored."""
+    try:
+        cands = [json.loads(l) for l in open(ARBS) if l.strip()]
+    except Exception:
+        return None
+    best = None
+    for c in cands:
+        if c.get("eventSlug") == row.get("slug") and c.get("ts", "") <= row.get("ts", "9"):
+            if best is None or c["ts"] > best["ts"]:
+                best = c
+    if best and best.get("outcomes"):
+        return [o.get("slug") for o in best["outcomes"]]
+    return None
+
+
 def settle():
     """Settle open paper arbs: refetch event, compute basket payout."""
     if not os.path.exists(LEDGER):
@@ -411,9 +429,18 @@ def settle():
         if not evs:
             continue
         ms = (evs[0].get("markets") or [])
+        # Oct 29 2026 FIX: events carry extra sub-markets (e.g. an 8-market House event
+        # where only 2 markets form the basket). Settle ONLY the basket's legs, else
+        # valid baskets get flagged MULTIPLE_YES / mis-attributed on resolution.
+        legs = r.get("legs") or _legs_from_candidates(r)
+        if legs:
+            by_slug = {m.get("slug"): m for m in ms}
+            ms = [by_slug[s] for s in legs if s in by_slug]
+            if len(ms) < len(legs):
+                continue                  # leg markets not all present yet
         open_ms = [m for m in ms if not m.get("closed")]
         if open_ms:
-            continue                      # event still live
+            continue                      # basket still live
         yes_finals = [parse_j(m.get("outcomePrices")) for m in ms]
         winners = [1 for p in yes_finals if p and float(p[0]) > 0.99]
         if len(winners) == 1:

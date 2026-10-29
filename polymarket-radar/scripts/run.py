@@ -98,6 +98,14 @@ def main():
                           "live": jload("live_ledger.jsonl")}, indent=1))
         return
 
+    # settle resolved LIVE baskets too (no-op until a live basket exists)
+    try:
+        p = subprocess.run([sys.executable, os.path.join(BASE, "basket_executor.py"), "settle"],
+                           cwd=BASE, capture_output=True, text=True, timeout=300)
+        summary["modes"]["basket_settle"] = json.loads(p.stdout) if p.stdout.strip() else None
+    except Exception as ex:
+        summary["errors"].append("basket_settle: %s" % str(ex)[:150])
+
     for m in ("settle", "shadow", "scan", "news", "spreads"):
         parsed, raw = run_mode(m)
         summary["modes"][m] = parsed if parsed is not None else clip(raw)
