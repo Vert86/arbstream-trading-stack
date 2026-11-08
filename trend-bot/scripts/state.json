@@ -4,9 +4,30 @@
  "trades": [],
  "equity_hwm": 340.0,
  "tactical": {
-  "cash": 340.0,
+  "cash": 331.5635122168811,
   "positions": {},
-  "trades": []
+  "trades": [
+   {
+    "ts": 1793794773931,
+    "sym": "ETHUSDT",
+    "side": "buy",
+    "px": 2321.5,
+    "reason": "4h 20-bar breakout, vol-sized",
+    "layer": "tactical"
+   },
+   {
+    "ts": 1794039669709,
+    "sym": "ETHUSDT",
+    "side": "sell",
+    "px": 2246.34,
+    "qty": 0.11225325274104789,
+    "pnl": -8.44,
+    "pnl_pct": -3.24,
+    "reason": "4h ATR trail",
+    "layer": "tactical",
+    "closed_ts": 1794039669709
+   }
+  ]
  },
  "pullback": {
   "cash": 340.0,

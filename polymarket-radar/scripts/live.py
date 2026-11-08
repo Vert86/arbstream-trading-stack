@@ -108,6 +108,17 @@ def best_ask(token_id):
     return float(asks[-1]["price"])   # asks DESCENDING -> best ask is last
 
 
+def _tick_round_up(px, tick=0.01):
+    """Round a BUY limit UP to the market tick (never underpay an ask)."""
+    import math
+    if not px or px <= 0:
+        return px
+    steps = math.ceil(round(px / tick, 8))
+    val = round(steps * tick, 4)
+    # markets are 0.01-tick (2dp) or 0.001-tick (3dp); comply with the SDK's 2dp cap
+    return round(val, 2) if tick >= 0.01 else round(val, 3)
+
+
 def live_positions():
     if not os.path.exists(LEDGER):
         return []
@@ -179,6 +190,14 @@ def trade():
                 done["note"] = "balance-too-low (deposit pending?); signals stay pending"
                 break
             tok = r.get("asset")
+            # DEDUPE (Nov 1 2026): never buy a market we already hold. Without this,
+            # repeated leader signals on the same token stack positions and doubled a
+            # $25 Utah bet the moment the mirror was unpaused.
+            if tok and any(p.get("token_id") == tok and p.get("status") == "open"
+                           for p in live_positions()):
+                done["skips"].append({"market": r["market"], "why": "already-held"})
+                state["last_shadow_ts"] = max(last, r["ts"])
+                continue
             limit = round(min(r.get("our_fill", 1), r.get("leader_price", 1) * 1.01), 3)
             try:
                 ask = best_ask(tok)
@@ -191,7 +210,7 @@ def trade():
                                           "ask": ask, "limit": limit})
                     state["last_shadow_ts"] = max(last, r["ts"])
                     continue
-                px = round(min(ask, limit), 3)
+                px = _tick_round_up(min(ask, limit))
                 res = cl.place_market_order(token_id=tok, side="BUY",
                                            amount=SIGNAL_SIZE, max_price=px,
                                            order_type="FOK")
@@ -214,8 +233,8 @@ def trade():
                            "token_id": tok, "price": px, "shares": shares,
                            "cost_usdc": round(px * shares, 2), "status": "open",
                            "conditionId": r.get("conditionId"),
-                           "order_id": d.get("order_id"),
-                           "taking_amount": d.get("taking_amount")}
+                           "order_id": str(d.get("order_id") or ""),
+                           "taking_amount": float(d.get("taking_amount") or 0)}
                     with open(LEDGER, "a") as f:
                         f.write(json.dumps(rec) + "\n")
                     done["orders"].append({k: rec[k] for k in
@@ -255,6 +274,65 @@ def trade():
     done["n_orders"] = len(done["orders"])
     done["deployed_usdc"] = round(deployed, 2)
     print(json.dumps(done, indent=1))
+
+
+def reconcile():
+    """Compare the ledger to real on-chain positions; backfill anything missing.
+    Added Nov 1 2026 after a Decimal serialization crash lost the record of a
+    $25 fill (and an earlier fill was never recorded at all)."""
+    import urllib.request
+    PROXY = "0x0e30Ecb4391FF30C59F0C18606fd41e218aCb47B"
+    out = {"checked": True, "backfilled": [], "resolved": [], "errors": []}
+    try:
+        req = urllib.request.Request(
+            "https://data-api.polymarket.com/positions?user=%s&sizeThreshold=0.5" % PROXY,
+            headers={"User-Agent": "Mozilla/5.0"})
+        chain = json.loads(urllib.request.urlopen(req, timeout=30).read())
+    except Exception as e:
+        out["errors"].append("positions fetch: %s" % str(e)[:120])
+        return out
+
+    rows = [json.loads(l) for l in open(LEDGER) if l.strip()] if os.path.exists(LEDGER) else []
+    known = {(r.get("token_id"), round(float(r.get("shares") or 0), 2)) for r in rows}
+    for p in chain:
+        tok = str(p.get("asset") or "")
+        size = round(float(p.get("size") or 0), 2)
+        cur = float(p.get("curPrice") or 0)
+        avg = float(p.get("avgPrice") or 0)
+        init = float(p.get("initialValue") or 0)
+        cid = p.get("conditionId")
+        matched = [r for r in rows if r.get("token_id") == tok]
+        if not matched:
+            rec = {"ts": now(), "market": p.get("title"), "leader": "unrecorded",
+                   "token_id": tok, "price": avg, "shares": size,
+                   "cost_usdc": round(init, 2), "status": "open",
+                   "conditionId": cid, "order_id": "",
+                   "source": "reconcile: on-chain position missing from ledger"}
+            if cur >= 0.99:
+                rec.update(status="settled", result="WIN", pnl_usdc=round(size * 1.0 - init, 2))
+            elif cur <= 0.01 and size > 0:
+                rec.update(status="settled", result="LOSS", pnl_usdc=round(-init, 2))
+            rows.append(rec)
+            out["backfilled"].append({"market": (rec["market"] or "")[:45],
+                                     "cost": rec["cost_usdc"], "status": rec["status"],
+                                     "pnl": rec.get("pnl_usdc")})
+        else:
+            for r in matched:
+                if r.get("status") == "open" and cur <= 0.01:
+                    r.update(status="settled", result="LOSS",
+                             pnl_usdc=round(-float(r.get("cost_usdc") or 0), 2))
+                    out["resolved"].append({"market": (r.get("market") or "")[:45],
+                                            "pnl": r["pnl_usdc"]})
+                elif r.get("status") == "open" and cur >= 0.99:
+                    r.update(status="settled", result="WIN",
+                             pnl_usdc=round(float(r.get("shares") or 0) - float(r.get("cost_usdc") or 0), 2))
+                    out["resolved"].append({"market": (r.get("market") or "")[:45],
+                                            "pnl": r["pnl_usdc"]})
+    if out["backfilled"] or out["resolved"]:
+        with open(LEDGER, "w") as f:
+            for r in rows:
+                f.write(json.dumps(r, default=str) + "\n")
+    return out
 
 
 def status():

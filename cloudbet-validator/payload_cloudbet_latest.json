@@ -1,0 +1,113 @@
+{
+  "updated_at": "2026-11-07T19:03:02.620203+00:00",
+  "settled": 23,
+  "wins": 10,
+  "roi_pct": -14.0,
+  "clv_avg_pct": 0.67,
+  "open_bets": 0,
+  "gate": {
+    "settled_needed": 30,
+    "settled_now": 23,
+    "rule": "n>=30 settled AND ROI>0 AND avg CLV>0"
+  },
+  "real_balance": 24.15729633,
+  "note": "paper validation — no real money bets",
+  "recent_bets": [
+    {
+      "ts": "2026-10-21T19:02:34.925489+00:00",
+      "league": "nhl",
+      "event": "PHI @ BUF",
+      "selection": "home",
+      "price_taken": 1.521,
+      "edge_pct": null,
+      "stake": 1.0,
+      "status": "settled",
+      "result": "loss",
+      "profit": -1.0
+    },
+    {
+      "ts": "2026-10-21T19:02:34.925489+00:00",
+      "league": "nhl",
+      "event": "NYR @ TOR",
+      "selection": "away",
+      "price_taken": 1.893,
+      "edge_pct": null,
+      "stake": 1.0,
+      "status": "settled",
+      "result": "loss",
+      "profit": -1.0
+    },
+    {
+      "ts": "2026-10-21T19:02:34.925489+00:00",
+      "league": "nhl",
+      "event": "SJ @ OTT",
+      "selection": "home",
+      "price_taken": 1.769,
+      "edge_pct": null,
+      "stake": 1.0,
+      "status": "settled",
+      "result": "loss",
+      "profit": -1.0
+    },
+    {
+      "ts": "2026-10-22T01:04:39.825419+00:00",
+      "league": "nhl",
+      "event": "CAR @ EDM",
+      "selection": "home",
+      "price_taken": 1.98,
+      "edge_pct": null,
+      "stake": 1.0,
+      "status": "settled",
+      "result": "win",
+      "profit": 0.98
+    },
+    {
+      "ts": "2026-10-22T01:04:39.825419+00:00",
+      "league": "nhl",
+      "event": "DET @ VAN",
+      "selection": "away",
+      "price_taken": 1.588,
+      "edge_pct": null,
+      "stake": 1.0,
+      "status": "settled",
+      "result": "win",
+      "profit": 0.588
+    },
+    {
+      "ts": "2026-10-22T07:04:04.936609+00:00",
+      "league": "nba",
+      "event": "CHI @ MIL",
+      "selection": "home",
+      "price_taken": 1.909,
+      "edge_pct": null,
+      "stake": 1.0,
+      "status": "settled",
+      "result": "loss",
+      "profit": -1.0
+    },
+    {
+      "ts": "2026-10-22T07:04:04.936609+00:00",
+      "league": "nba",
+      "event": "DET @ MIA",
+      "selection": "away",
+      "price_taken": 2.05,
+      "edge_pct": null,
+      "stake": 1.0,
+      "status": "settled",
+      "result": "win",
+      "profit": 1.05
+    },
+    {
+      "ts": "2026-10-22T07:04:04.936609+00:00",
+      "league": "nba",
+      "event": "MEM @ GS",
+      "selection": "away",
+      "price_taken": 2.3,
+      "edge_pct": null,
+      "stake": 1.0,
+      "status": "settled",
+      "result": "win",
+      "profit": 1.3
+    }
+  ]
+}

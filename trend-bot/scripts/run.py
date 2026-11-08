@@ -97,12 +97,16 @@ def run(mode="scan"):
         act, meta = signals.core_decision(closes[-421:], hcomp[-421:], lcomp[-421:], pos is not None)
         if pos and mode == "scan" and act == "exit":
             reason = "daily donchian low" if meta["reason"] == "donchian_low_10d" else "regime off (200D)"
-            if True:
-                state["trades"].append(dict(ts=int(time.time()*1000), sym=sym, side="sell",
-                    px=round(px,2), qty=pos["qty"], pnl=round(pnl,2),
-                    pnl_pct=round(pnl/pos["invested"]*100,2), reason=reason, layer="core"))
-                result["actions"].append(f"CORE SELL {sym} @ {px:.2f} pnl {pnl:+.2f} ({pnl/pos['invested']*100:+.1f}%) — {reason}")
-                del state["positions"][sym]
+            px = cur_px * (1 - FEE)
+            pnl = (px - pos["entry_px"]) * pos["qty"]
+            state["cash"] += pos["qty"] * px
+            state["trades"].append(dict(ts=int(time.time()*1000), sym=sym, side="sell",
+                px=round(px,2), qty=pos["qty"], pnl=round(pnl,2),
+                pnl_pct=round(pnl/pos["invested"]*100,2), reason=reason, layer="core",
+                closed_ts=int(time.time()*1000)))
+            result["actions"].append(f"CORE SELL {sym} @ {px:.2f} pnl {pnl:+.2f} ({pnl/pos['invested']*100:+.1f}%) — {reason}")
+            result["forced_exit_due"] = True
+            del state["positions"][sym]
         if not state["positions"].get(sym) and mode == "scan" and act == "enter":
             size = signals.core_size(state["cash"], cur_px, ll10)
             eq_now = state["cash"] + sum(p["qty"]*cur_px for p in state["positions"].values())
@@ -209,14 +213,18 @@ def run(mode="scan"):
         a = tact_meta.get("atr"); hh = tact_meta.get("don_hi", 0)
         if pos and mode == "scan" and tact_act == "exit":
             reason = "4h ATR trail" if tact_meta["reason"] == "atr_trail" else "regime off (200D)"
-            if True:
-                tac["trades"].append(dict(ts=int(time.time()*1000), sym=sym, side="sell",
-                    px=round(px,2), qty=pos["qty"], pnl=round(pnl,2),
-                    pnl_pct=round(pnl/pos["invested"]*100,2), reason=reason, layer="tactical"))
-                result["actions"].append(f"TACTICAL SELL {sym} @ {px:.2f} pnl {pnl:+.2f} ({pnl/pos['invested']*100:+.1f}%) — {reason}")
-                del tac["positions"][sym]
-            elif pos and tact_act == "hold" and "hi_close" in tact_meta:
-                pos["hi_close"] = tact_meta["hi_close"]
+            px = cur_px * (1 - FEE)
+            pnl = (px - pos["entry_px"]) * pos["qty"]
+            tac["cash"] += pos["qty"] * px
+            tac["trades"].append(dict(ts=int(time.time()*1000), sym=sym, side="sell",
+                px=round(px,2), qty=pos["qty"], pnl=round(pnl,2),
+                pnl_pct=round(pnl/pos["invested"]*100,2), reason=reason, layer="tactical",
+                closed_ts=int(time.time()*1000)))
+            result["actions"].append(f"TACTICAL SELL {sym} @ {px:.2f} pnl {pnl:+.2f} ({pnl/pos['invested']*100:+.1f}%) — {reason}")
+            result["forced_exit_due"] = True
+            del tac["positions"][sym]
+        elif pos and mode == "scan" and tact_act == "hold" and "hi_close" in tact_meta:
+            pos["hi_close"] = tact_meta["hi_close"]
         if not tac["positions"].get(sym) and mode == "scan" and tact_act == "enter":
             size = signals.tactical_size(tac["cash"], cur_px, tact_meta.get("atr"))
             if size >= 20.0:
