@@ -1,0 +1,353 @@
+{
+ "pick_name": "DAL Mavericks",
+ "matchup": "LAC @ DAL",
+ "event_id": "37360180",
+ "side": "home",
+ "market_price": 1.5,
+ "board_price": 1.5,
+ "model": 0.6671,
+ "fair": 0.6445,
+ "edge": 0.0007,
+ "edge_draw_adj": -0.0512,
+ "draw_price": 17.69,
+ "away_price": 2.72,
+ "records": "LAC 4-10 (-6.2) | DAL 8-7 (-0.9)",
+ "inj_out": "DAL:0 LAC:0",
+ "starts": "2026-11-22T01:00:00Z",
+ "board": [
+  {
+   "league": "NBA",
+   "matchup": "LAC @ DAL",
+   "pick_name": "DAL Mavericks",
+   "price": 1.5,
+   "edge": 0.0006729704636052602,
+   "records": "LAC 4-10 (-6.2) | DAL 8-7 (-0.9)"
+  },
+  {
+   "league": "NBA",
+   "matchup": "MIL @ PHI",
+   "pick_name": "PHI 76ers",
+   "price": 1.17,
+   "edge": -0.018566919768029932,
+   "records": "MIL 1-15 (-12.9) | PHI 13-3 (+2.9)"
+  },
+  {
+   "league": "NBA",
+   "matchup": "POR @ NY",
+   "pick_name": "POR Trail Blazers",
+   "price": 2.71,
+   "edge": -0.019111545184317902,
+   "records": "POR 10-5 (+6.3) | NY 9-6 (+5.9)"
+  },
+  {
+   "league": "NBA",
+   "matchup": "MEM @ MIN",
+   "pick_name": "MEM Grizzlies",
+   "price": 2.79,
+   "edge": -0.02036785769901517,
+   "records": "MEM 12-4 (+10.2) | MIN 11-5 (+9.8)"
+  },
+  {
+   "league": "NBA",
+   "matchup": "BOS @ SAC",
+   "pick_name": "BOS Celtics",
+   "price": 1.15,
+   "edge": -0.02118041566755624,
+   "records": "BOS 11-4 (+10.5) | SAC 1-14 (-13.2)"
+  },
+  {
+   "league": "NBA",
+   "matchup": "NO @ SA",
+   "pick_name": "SA Spurs",
+   "price": 1.07,
+   "edge": -0.03770736113500639,
+   "records": "NO 5-12 (-7.4) | SA 13-3 (+11.2)"
+  }
+ ],
+ "tennis_mma": [
+  {
+   "sport": "tennis",
+   "event_id": 37354531,
+   "match": "Carlos Alcaraz v Ben Shelton",
+   "cutoff": "2026-11-21T13:30:00Z",
+   "market": "derived_from_correct_score",
+   "prices": {
+    "home": 1.136,
+    "away": 4.299
+   },
+   "fair": {
+    "home": 0.791,
+    "away": 0.209
+   },
+   "vig_pct": 11.29,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "tennis",
+   "event_id": 37358192,
+   "match": "Alexander Zverev v Daniil Medvedev",
+   "cutoff": "2026-11-21T19:30:00Z",
+   "market": "derived_from_correct_score",
+   "prices": {
+    "home": 1.466,
+    "away": 2.268
+   },
+   "fair": {
+    "home": 0.6074,
+    "away": 0.3926
+   },
+   "vig_pct": 12.3,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37294756,
+   "match": "Jiri Prochazka v Navajo Stirling",
+   "cutoff": "2026-11-21T19:20:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 2.65,
+    "draw": 34,
+    "away": 1.5
+   },
+   "fair": {
+    "home": 0.3515,
+    "draw": 0.0274,
+    "away": 0.6211
+   },
+   "vig_pct": 7.34,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37295410,
+   "match": "Aljamain Sterling v Kevin Vallejos",
+   "cutoff": "2026-11-21T19:00:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 1.98,
+    "draw": 50,
+    "away": 1.82
+   },
+   "fair": {
+    "home": 0.47,
+    "draw": 0.0186,
+    "away": 0.5114
+   },
+   "vig_pct": 7.45,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37295583,
+   "match": "Daniel Hooker v Brian Ortega",
+   "cutoff": "2026-11-21T18:40:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 1.5,
+    "draw": 50,
+    "away": 2.55
+   },
+   "fair": {
+    "home": 0.618,
+    "draw": 0.0185,
+    "away": 0.3635
+   },
+   "vig_pct": 7.88,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37244741,
+   "match": "Kyoji Horiguchi v Asu Almabayev",
+   "cutoff": "2026-11-21T18:20:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 1.52,
+    "draw": 50,
+    "away": 2.5
+   },
+   "fair": {
+    "home": 0.6104,
+    "draw": 0.0186,
+    "away": 0.3711
+   },
+   "vig_pct": 7.79,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37295864,
+   "match": "Jared Cannonier v Ikram Aliskerov",
+   "cutoff": "2026-11-21T18:00:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 3.4,
+    "draw": 50,
+    "away": 1.31
+   },
+   "fair": {
+    "home": 0.273,
+    "draw": 0.0186,
+    "away": 0.7085
+   },
+   "vig_pct": 7.75,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37295431,
+   "match": "Aleksandre Topuria v Santiago Luna",
+   "cutoff": "2026-11-21T17:00:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 1.35,
+    "draw": 50,
+    "away": 3.15
+   },
+   "fair": {
+    "home": 0.687,
+    "draw": 0.0185,
+    "away": 0.2944
+   },
+   "vig_pct": 7.82,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37295419,
+   "match": "Shamil Gaziev v Tallison Teixeira",
+   "cutoff": "2026-11-21T16:40:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 1.51,
+    "draw": 50,
+    "away": 2.5
+   },
+   "fair": {
+    "home": 0.6119,
+    "draw": 0.0185,
+    "away": 0.3696
+   },
+   "vig_pct": 8.23,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37295420,
+   "match": "Amir Albazi v Alessandro Costa",
+   "cutoff": "2026-11-21T16:20:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 1.91,
+    "draw": 50,
+    "away": 1.89
+   },
+   "fair": {
+    "home": 0.4881,
+    "draw": 0.0186,
+    "away": 0.4933
+   },
+   "vig_pct": 7.27,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37295023,
+   "match": "Jake Matthews v Tahir Abdullaev",
+   "cutoff": "2026-11-21T16:00:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 1.41,
+    "draw": 50,
+    "away": 2.9
+   },
+   "fair": {
+    "home": 0.6603,
+    "draw": 0.0186,
+    "away": 0.3211
+   },
+   "vig_pct": 7.4,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37295139,
+   "match": "Nikolas Motta v Dom Mar Fan",
+   "cutoff": "2026-11-21T15:40:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 2.35,
+    "draw": 50,
+    "away": 1.57
+   },
+   "fair": {
+    "home": 0.3931,
+    "draw": 0.0185,
+    "away": 0.5884
+   },
+   "vig_pct": 8.25,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37295140,
+   "match": "Diyar Nurgozhay v Alik Lorenz",
+   "cutoff": "2026-11-21T15:20:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 1.37,
+    "draw": 50,
+    "away": 3.08
+   },
+   "fair": {
+    "home": 0.6793,
+    "draw": 0.0186,
+    "away": 0.3021
+   },
+   "vig_pct": 7.46,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  },
+  {
+   "sport": "mma",
+   "event_id": 37345343,
+   "match": "Shoaib Yousaf v John Mitchell",
+   "cutoff": "2026-11-21T15:00:00Z",
+   "market": "1x2",
+   "prices": {
+    "home": 2,
+    "draw": 50,
+    "away": 1.81
+   },
+   "fair": {
+    "home": 0.4662,
+    "draw": 0.0186,
+    "away": 0.5151
+   },
+   "vig_pct": 7.25,
+   "anchor": null,
+   "note": "no independent anchor: edge ~0 by construction"
+  }
+ ],
+ "graded": [
+  {
+   "selection": "HOU Rockets",
+   "result": "loss",
+   "final_score": "DEN 133 - HOU 124",
+   "profit": -4.0
+  }
+ ]
+}

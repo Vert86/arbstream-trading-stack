@@ -13,7 +13,7 @@ import json, os, subprocess, sys, urllib.request, datetime
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 FEED_URL = "https://arbstream.duckdns.org/ingest/polymarket"
-TOKEN = os.environ.get("ARBSTREAM_INGEST_TOKEN", "")  # set via env; never commit
+TOKEN = os.environ.get("ARBSTREAM_INGEST_TOKEN", "")
 CAP = 4000  # per-mode output cap in summary
 
 

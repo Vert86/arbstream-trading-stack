@@ -70,3 +70,71 @@ Fields to confirm against one real fill before trusting unattended placement: ma
 stake, currency, price, acceptPriceChange, plus the required UUID reference field flagged
 by the validator. Until that is proven with a live bet, the UI click path stays primary
 and the API is the fallback when the site session is logged out.
+
+---
+
+# VERIFIED WORKING PLACEMENT (16 Nov 2026)
+
+First successful API bet, placed with the site session fully logged out.
+
+## The payload that works
+
+POST https://sports-api.cloudbet.com/pub/v3/bets/place
+headers: X-API-Key: <JWT> , Content-Type: application/json
+
+```json
+{
+  "eventId": "37285571",
+  "marketUrl": "basketball.1x2/away",
+  "stake": "4",
+  "price": "1.72",
+  "currency": "USDT",
+  "referenceId": "<uuid4>"
+}
+```
+
+Response 200:
+
+```json
+{"referenceId":"624db10b-...","price":"1.72","eventId":"37285571",
+ "marketUrl":"basketball.1x2/away","side":"BACK","currency":"USDT",
+ "stake":"4.0","createTime":"2026-11-16T13:13:22Z","status":"ACCEPTED","error":""}
+```
+
+## Field gotchas, each learned from a real 400
+
+| mistake | error returned |
+|---|---|
+| no body at all | `invalid uuid format` |
+| missing referenceId | `invalid uuid format` |
+| eventId as a NUMBER | `invalid body payload` |
+| stale acceptPriceChange field | `invalid body payload` |
+| eventId missing | `invalid event ID` |
+
+Rules that follow:
+- `eventId` must be a STRING.
+- `stake` and `price` must be STRINGS.
+- `referenceId` must be a fresh uuid4 per bet (it is the idempotency key).
+- Do not send `acceptPriceChange`, it is rejected.
+
+## Market selection for NBA
+
+`basketball.moneyline` is present in the feed but returns
+`SELECTION_DISABLED` with price 0. The market that is actually priced and
+enabled is `basketball.1x2` (submarket `period=ft`), with outcomes
+home / draw / away. For NBA the draw is priced but impossible, so backing
+`basketball.1x2/away` is the moneyline bet in practice.
+
+## No login required
+
+Auth is the X-API-Key header alone. Confirmed by placing a real bet while the
+browser session showed "Sign in / Join" with no balance. This removes the
+logged-out failure mode entirely, which is what blocked the 14 and 15 Nov runs.
+
+## What the API does NOT expose
+
+No balance endpoint exists: `/pub/v1/account/balance`, `/balances`,
+`/pub/v3/account/balance` and `/pub/v1/account/` all return 404. The only
+account call that works is `/pub/v1/account/currencies/`, which lists currency
+codes with no amounts. So a placement is confirmed by `status: ACCEPTED` plus
+the returned referenceId, not by reading a balance.
