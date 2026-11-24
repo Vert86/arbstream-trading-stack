@@ -1,17 +1,16 @@
-# Cloudbet Paper Validator
+# Cloudbet live betting
 
-Paper-only betting validation harness (NO real money). Validates the fundamental-tilt
-model against DraftKings odds via ESPN's free API, settles with real results.
+Real-money daily betting on Cloudbet. One $4 flat bet per day, and only when the
+draw-adjusted EV is positive (owner rule, 22 Nov 2026).
 
-Run:  cd /app/cloudbet_validator && python3 scan.py && python3 settle.py && python3 metrics.py
+- `daily_analysis.py` (in the conversation's cloudbet_daily dir) prices the board.
+  It lives there because it imports `model.py` and `cloudbet.py` from here.
+- `cloudbet.py` - read-only Cloudbet feed client (list_games, get_event, main_market).
+- `model.py` - fundamental tilt model (used by the live job, keep it).
+- `other_sports.py` - tennis/MMA scan, watch only, never bet.
+- `live_bets.jsonl` - every real bet placed, one JSON row per bet.
+- `pick_today.json` - today's decision, including the skip flag.
+- `API_NOTES.md` - Cloudbet placement API notes (Cloudflare, header auth, schemas).
 
-## Status (Oct 18 2026)
-- CORRECTION Oct 28 (owner review): DraftKings is a RECREATIONAL book, not 'sharp'; the sharp benchmark would be Pinnacle-style closing lines (optional upgrade via a free odds API key). CLV here is measured vs DK's own close — the venue we would actually bet.\n- STRUCTURAL CEILING (null hypothesis, stated plainly): standings/scoring/injuries are public and already in the DK price. If DK prices that information efficiently, expected CLV of this tilt is ~0 minus vig, and the strategy dies at the n=100 CLV gate. The forward test exists to measure exactly this.\n- PRE-REGISTRATION RESTART (Oct 28): the v5 NBA >=8-gp gate was designed AFTER seeing the 2W/10 NBA cohort — post-hoc fitting, owner-flagged. The gate stays but the binding n=100 CLV gate now applies to the v5 cohort only (n=0 as of Oct 28 04:37 UTC); the ungated rule's early-NBA bets are shadow-logged (nba_early_gate tag) so fresh data judges the rule.\n- Cloudbet's own API is temporarily degraded: main markets (match_odds/moneyline)
-  return SELECTION_DISABLED with price 0 for most near-kickoff events, platform-wide
-  rebuild per https://github.com/cloudbet/docs/discussions/170 (user asked to enable
-  per-account access: issue #203). Until restored, DK-via-ESPN is the odds source.
-- Cloudbet Trading v4 endpoints are Cloudflare-blocked from datacenter IPs (US + SG tested).
-- Model: fair = de-margined DK 2-way; fundamental tilt (winPct, netPPG, injuries, HFA)
-  blended at 25% in logit space; bet only edges +2%..+10% at odds 1.50-3.00.
-- Gates (pre-registered): >=100 settled bets AND ROI > 0 AND avg CLV > 0 before any
-  discussion of wiring real money. If avg CLV < 0 at n=100, strategy is dead, stop.
+The paper validation harness (scan/settle/metrics/espn_odds + state) was deleted on
+24 Nov 2026 at the owner's request. Do not rebuild it.
