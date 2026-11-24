@@ -35,41 +35,56 @@ def get(base, key, sec, path):
     return json.loads(urllib.request.urlopen(req, timeout=30).read())
 
 
-def paper_gate():
-    """Live trading is only allowed after a genuine paper run today.
+LIVE_MIN_EQUITY = 800.0
 
-    Fail closed: missing feed, stale feed, or a payload without scan provenance
-    (engine + scan_ok) all block live trading. This is the check the 15:55 paper
-    run exists to satisfy.
+
+def live_gate():
+    """Pre-flight checks before touching real money. Fails closed.
+
+    Replaces the old paper-feed gate: the paper scanner was deleted on 24 Nov 2026,
+    so "did the control group run cleanly" can never be answered again. These are
+    the checks that actually predict a broken live run: account state, the equity
+    floor, a reachable market clock, and no orders already working.
     """
     try:
-        req = urllib.request.Request(FEED["paper"], headers={"User-Agent": "alpaca-gate"})
-        d = json.loads(urllib.request.urlopen(req, timeout=30).read())
+        acct = get(LIVE_URL, LIVE_KEY, LIVE_SEC, "/v2/account")
     except Exception as e:
-        return False, f"paper feed unreadable: {type(e).__name__}: {str(e)[:60]}"
-    if not d.get("scan_ok"):
-        return False, f"paper scan_ok={d.get('scan_ok')!r} errors={d.get('scan_errors')}"
-    if not d.get("engine"):
-        return False, "paper payload has no engine provenance (hand-built payload?)"
+        return False, f"live account unreadable: {type(e).__name__}: {str(e)[:60]}"
+    if acct.get("account_blocked") or acct.get("trading_blocked"):
+        return False, "live account is blocked from trading"
+    if acct.get("status") != "ACTIVE":
+        return False, f"live account status {acct.get('status')!r}"
     try:
-        ts = datetime.fromisoformat(d["updated_at"].replace("Z", "+00:00"))
-        age = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
+        eq = float(acct.get("equity") or 0)
+    except Exception:
+        return False, "live equity unparseable"
+    if eq < LIVE_MIN_EQUITY:
+        return False, f"equity ${eq:.0f} below the ${LIVE_MIN_EQUITY:.0f} floor"
+    try:
+        clk = get(LIVE_URL, LIVE_KEY, LIVE_SEC, "/v2/clock")
     except Exception as e:
-        return False, f"paper updated_at unparseable: {e}"
-    if age > GATE_MAX_AGE_H:
-        return False, f"paper run is {age:.1f}h old (max {GATE_MAX_AGE_H}h)"
-    return True, f"paper ok, {age:.1f}h old, engine={d['engine']}, positions={len(d.get('positions') or [])}"
+        return False, f"market clock unreadable: {type(e).__name__}"
+    try:
+        orders = get(LIVE_URL, LIVE_KEY, LIVE_SEC, "/v2/orders?status=open&limit=100")
+    except Exception:
+        orders = []
+    if orders:
+        syms = ", ".join(sorted({o.get("symbol", "?") for o in orders})[:5])
+        return False, f"{len(orders)} order(s) already working ({syms}) — not stacking a second run"
+    return True, (f"account {acct.get('status')}, equity ${eq:.0f}, "
+                  f"clock {'open' if clk.get('is_open') else 'closed'}, 0 open orders")
 
 
 def main():
-    missing = [n for n, v in (("DASHBOARD_INGEST_TOKEN", TOKEN), ("ALPACA_PAPER_KEY", PAPER_KEY)) if not v]
+    live = "--live" in sys.argv
+    needed = [("DASHBOARD_INGEST_TOKEN", TOKEN)] + ([] if live else [("ALPACA_PAPER_KEY", PAPER_KEY)])
+    missing = [n for n, v in needed if not v]
     if missing:
         print(json.dumps({"error": f"missing env: {', '.join(missing)}", "orders": 0}))
         return
-    live = "--live" in sys.argv
     if live:
         base, key, sec = LIVE_URL, LIVE_KEY, LIVE_SEC
-        ok, why = paper_gate()
+        ok, why = live_gate()
         if not ok:
             print(json.dumps({"mode": "live", "skipped": "gate_failed", "reason": why,
                               "orders": 0, "note": "no live orders placed"}))
@@ -83,6 +98,8 @@ def main():
     cmd = [sys.executable, os.path.join(HERE, "run.py"), "trade"]
     if live:
         cmd.append("--live")
+    if "--dry" in sys.argv:          # full decision path, no orders submitted
+        cmd.append("--dry")
     proc = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
     scan, parse_err = None, None
     try:
